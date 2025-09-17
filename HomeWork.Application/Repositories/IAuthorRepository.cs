@@ -4,6 +4,7 @@ namespace HomeWork.Application.Repositories
 {
     public interface IAuthorRepository
     {
+        Task<IEnumerable<Author>> FindAllAsync();
         Task<Author?> FindByIdAsync(int id);
         Task<Author> AddAsync(Author author);
         Task<Author?> UpdateAsync(Author author);

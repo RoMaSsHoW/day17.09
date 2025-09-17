@@ -1,4 +1,8 @@
-﻿using HomeWork.Infrastructure.Data;
+﻿using HomeWork.Api.Services;
+using HomeWork.Application.Repositories;
+using HomeWork.Application.Services;
+using HomeWork.Infrastructure.Data;
+using HomeWork.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeWork.Api.Extentions
@@ -26,12 +30,14 @@ namespace HomeWork.Api.Extentions
 
         private static void ConfigureRepositories(IServiceCollection services)
         {
-
+            services.AddScoped<IAuthorRepository, AuthorRepository>();
+            services.AddScoped<IBookRepository, BookRepository>();
         }
 
         private static void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddScoped<IAuthorService, AuthorService>();
+            services.AddScoped<IFileStorageService, FileStorageService>();
         }
     }
 }

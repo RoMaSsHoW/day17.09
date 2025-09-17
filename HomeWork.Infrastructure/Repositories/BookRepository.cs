@@ -14,6 +14,11 @@ namespace HomeWork.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<IEnumerable<Book>> FindAllAsync()
+        {
+            return await _dbContext.Books.ToListAsync();
+        }
+
         public async Task<Book?> FindByIdAsync(int id)
         {
             var book = await _dbContext.Books

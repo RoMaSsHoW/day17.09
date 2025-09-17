@@ -14,6 +14,13 @@ namespace HomeWork.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
+        public async Task<IEnumerable<Author>> FindAllAsync()
+        {
+            return await _dbContext.Authors
+                .Include(a => a.Books)
+                .ToListAsync();
+        }
+
         public async Task<Author?> FindByIdAsync(int id)
         {
             var author = await _dbContext.Authors
