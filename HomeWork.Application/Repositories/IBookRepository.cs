@@ -6,6 +6,7 @@ namespace HomeWork.Application.Repositories
     {
         Task<IEnumerable<Book>> FindAllAsync();
         Task<Book?> FindByIdAsync(int id);
+        Task<Book?> FindByTitleAsync(string title);
         Task<Book> AddAsync(Book book);
         Task<Book?> UpdateAsync(Book book);
         Task DeleteAsync(int id);

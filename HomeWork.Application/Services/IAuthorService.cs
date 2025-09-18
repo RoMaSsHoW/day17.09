@@ -7,6 +7,7 @@ namespace HomeWork.Application.Services
     {
         Task<IEnumerable<Author>> GetAllAsync();
         Task<Author> CreateAsync(AuthorCreateDTO authorDTO);
-        Task<Author?> UpdateAsync(Author authorDTO);
+        Task<Author?> EditAsync(AuthorEditPhotoDTO authorDTO);
+        Task DeleteAsync(int id);
     }
 }

@@ -34,7 +34,7 @@ namespace HomeWork.Domain.Entities
             if (book == null)
                 throw new ArgumentNullException(nameof(book), "Book cannot be null.");
 
-            if (_books.Any(b => b.Equals(book)))
+            if (!_books.Any(b => b.Equals(book)))
                 throw new InvalidOperationException($"The book '{book.Title}' is already associated with this author.");
 
             _books.Add(book);

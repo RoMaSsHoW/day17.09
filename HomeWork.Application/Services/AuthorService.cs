@@ -7,13 +7,16 @@ namespace HomeWork.Application.Services
     public class AuthorService : IAuthorService
     {
         private readonly IAuthorRepository _authorRepository;
+        private readonly IBookRepository _bookRepository;
         private readonly IFileStorageService _fileStorageService;
 
         public AuthorService(
             IAuthorRepository authorRepository,
-            IFileStorageService fileStorageService)
+            IFileStorageService fileStorageService,
+            IBookRepository bookRepository)
         {
             _authorRepository = authorRepository;
+            _bookRepository = bookRepository;
             _fileStorageService = fileStorageService;
         }
 
@@ -49,7 +52,28 @@ namespace HomeWork.Application.Services
             return author;
         }
 
-        public Task<Author?> UpdateAsync(Author authorDTO)
+        public async Task<Author?> EditAsync(AuthorEditPhotoDTO authorDTO)
+        {
+            var author = await _authorRepository.FindByIdAsync(authorDTO.Id);
+            if (author == null)
+                return null;
+
+            var fileName = await _fileStorageService.UpdateFileAsync(author.PhotoName, authorDTO.Photo);
+
+            author.UpdatePhoto(fileName);
+
+            var updatedAuthor = await _authorRepository.UpdateAsync(author);
+            if(updatedAuthor == null)
+                return null;
+
+            var photoPath = _fileStorageService.GetFilePath(updatedAuthor.PhotoName);
+
+            updatedAuthor.UpdatePhoto(photoPath);
+
+            return updatedAuthor;
+        }
+
+        public Task DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }

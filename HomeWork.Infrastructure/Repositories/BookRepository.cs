@@ -27,6 +27,14 @@ namespace HomeWork.Infrastructure.Repositories
             return book;
         }
 
+        public async Task<Book?> FindByTitleAsync(string title)
+        {
+            var book = await _dbContext.Books
+                .FirstOrDefaultAsync(b => b.Title == title);
+
+            return book;
+        }
+
         public async Task<Book> AddAsync(Book book)
         {
             await _dbContext.Books.AddAsync(book);

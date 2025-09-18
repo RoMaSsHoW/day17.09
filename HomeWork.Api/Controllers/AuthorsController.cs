@@ -30,5 +30,13 @@ namespace HomeWork.Api.Controllers
             var created = await _authorService.CreateAsync(dto);
             return Ok(created);
         }
+
+        [HttpPut]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Update([FromForm] AuthorEditPhotoDTO dto)
+        {
+            var created = await _authorService.EditAsync(dto);
+            return Ok(created);
+        }
     }
 }

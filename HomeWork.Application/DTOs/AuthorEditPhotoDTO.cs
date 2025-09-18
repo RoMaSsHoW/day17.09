@@ -1,0 +1,10 @@
+﻿using Microsoft.AspNetCore.Http;
+
+namespace HomeWork.Application.DTOs
+{
+    public class AuthorEditPhotoDTO
+    {
+        public int Id { get; set; }
+        public IFormFile? Photo { get; set; }
+    }
+}
