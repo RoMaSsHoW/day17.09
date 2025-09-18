@@ -5,24 +5,30 @@ namespace HomeWork.Api.Services
     public class FileStorageService : IFileStorageService
     {
         private readonly string _imageFolderPath;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public FileStorageService(IWebHostEnvironment env)
+        public FileStorageService(IWebHostEnvironment env, IHttpContextAccessor httpContextAccessor)
         {
             _imageFolderPath = Path.Combine(env.WebRootPath, "images");
             if (!Directory.Exists(_imageFolderPath))
                 Directory.CreateDirectory(_imageFolderPath);
+
+            _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<byte[]?> GetFileAsync(string? fileName)
+        public string? GetFilePath(string? fileName)
         {
             if (string.IsNullOrEmpty(fileName))
                 return null;
 
-            var filePath = Path.Combine(_imageFolderPath, fileName);
-            if (!File.Exists(filePath))
+            var httpContext = _httpContextAccessor.HttpContext;
+            if (httpContext == null)
                 return null;
 
-            return await File.ReadAllBytesAsync(filePath);
+            var request = httpContext.Request;
+            var baseUrl = $"{request.Scheme}://{request.Host}";
+
+            return $"{baseUrl}/images/{fileName}";
         }
 
         public async Task<string?> SaveFileAsync(IFormFile? file)

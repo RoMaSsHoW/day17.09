@@ -17,27 +17,24 @@ namespace HomeWork.Application.Services
             _fileStorageService = fileStorageService;
         }
 
-        public async Task<IEnumerable<AuthorDTO>> GetAllAsync()
+        public async Task<IEnumerable<Author>> GetAllAsync()
         {
             var authors = await _authorRepository.FindAllAsync();
 
-            var result = new List<AuthorDTO>();
+            var result = new List<Author>();
             foreach (var author in authors)
             {
-                var photoBytes = await _fileStorageService.GetFileAsync(author.PhotoName);
+                var photoPath = _fileStorageService.GetFilePath(author.PhotoName);
 
-                result.Add(new AuthorDTO
-                {
-                    Id = author.Id,
-                    Name = author.Name,
-                    Photo = photoBytes
-                });
+                author.UpdatePhoto(photoPath);
+
+                result.Add(author);
             }
 
             return result;
         }
 
-        public async Task<AuthorDTO> CreateAsync(AuthorCreateDTO authorDTO)
+        public async Task<Author> CreateAsync(AuthorCreateDTO authorDTO)
         {
             var fileName = await _fileStorageService.SaveFileAsync(authorDTO.Photo);
 
@@ -45,21 +42,14 @@ namespace HomeWork.Application.Services
 
             await _authorRepository.AddAsync(author);
 
-            byte[]? photoBytes = null;
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                photoBytes = await _fileStorageService.GetFileAsync(fileName);
-            }
+            var photoPath = _fileStorageService.GetFilePath(author.PhotoName);
 
-            return new AuthorDTO
-            {
-                Id = author.Id,
-                Name = author.Name,
-                Photo = photoBytes
-            };
+            author.UpdatePhoto(photoPath);
+
+            return author;
         }
 
-        public Task<AuthorDTO?> UpdateAsync(AuthorDTO authorDTO)
+        public Task<Author?> UpdateAsync(Author authorDTO)
         {
             throw new NotImplementedException();
         }

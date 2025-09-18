@@ -4,7 +4,7 @@ namespace HomeWork.Application.Services
 {
     public interface IFileStorageService
     {
-        Task<byte[]?> GetFileAsync(string? fileName);
+        string? GetFilePath(string? fileName);
         Task<string?> SaveFileAsync(IFormFile? file);
         Task<string?> UpdateFileAsync(string? oldFileName, IFormFile? newFile);
         void DeleteFile(string? fileName);
