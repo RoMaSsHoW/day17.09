@@ -6,5 +6,6 @@ namespace HomeWork.Application.DTOs
     {
         public int Id { get; set; }
         public IFormFile? Photo { get; set; }
+        public List<BookDTO> Books { get; set; } = new();
     }
 }

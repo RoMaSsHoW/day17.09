@@ -62,8 +62,31 @@ namespace HomeWork.Application.Services
 
             author.UpdatePhoto(fileName);
 
+            var books = new List<Book>();
+            foreach (var book in authorDTO.Books)
+            {
+                var existingBook = await _bookRepository.FindByTitleAsync(book.Title);
+                if (existingBook != null)
+                {
+                    books.Add(existingBook);
+                }
+                else
+                {
+                    var newBook = await _bookRepository.AddAsync(Book.Create(author.Id, book.Title));
+                    books.Add(newBook);
+                }
+            }
+
+            if (books.Any())
+            {
+                foreach (var book in books)
+                {
+                    author.AddBook(book);
+                }
+            }
+
             var updatedAuthor = await _authorRepository.UpdateAsync(author);
-            if(updatedAuthor == null)
+            if (updatedAuthor == null)
                 return null;
 
             var photoPath = _fileStorageService.GetFilePath(updatedAuthor.PhotoName);
