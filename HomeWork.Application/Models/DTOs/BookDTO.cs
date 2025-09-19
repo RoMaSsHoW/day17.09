@@ -1,4 +1,4 @@
-﻿namespace HomeWork.Application.DTOs
+﻿namespace HomeWork.Application.Models.DTOs
 {
     public class BookDTO
     {

@@ -1,4 +1,4 @@
-﻿using HomeWork.Application.DTOs;
+﻿using HomeWork.Application.Models.DTOs;
 using HomeWork.Application.Repositories;
 using HomeWork.Domain.Entities;
 
@@ -20,9 +20,9 @@ namespace HomeWork.Application.Services
             _fileStorageService = fileStorageService;
         }
 
-        public async Task<IEnumerable<Author>> GetAllAsync()
+        public async Task<IEnumerable<Author>> GetAllAsync(int pageNumber)
         {
-            var authors = await _authorRepository.FindAllAsync();
+            var authors = await _authorRepository.FindAllAsync(pageNumber, 2);
 
             var result = new List<Author>();
             foreach (var author in authors)

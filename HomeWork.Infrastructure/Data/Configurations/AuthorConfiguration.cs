@@ -25,6 +25,12 @@ namespace HomeWork.Infrastructure.Data.Configurations
                    .WithOne()
                    .HasForeignKey(b => b.AuthorId)
                    .OnDelete(DeleteBehavior.Cascade);
+
+            //builder.HasData(
+            //    new Author { Id = 1, Name = "Leo Tolstoy", PhotoName = "tolstoy.jpg" },
+            //    new Author { Id = 2, Name = "Fyodor Dostoevsky", PhotoName = "dostoevsky.jpg" },
+            //    new Author { Id = 3, Name = "Alexander Pushkin", PhotoName = "pushkin.jpg" }
+            //);
         }
     }
 }

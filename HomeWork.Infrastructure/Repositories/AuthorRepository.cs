@@ -14,10 +14,12 @@ namespace HomeWork.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Author>> FindAllAsync()
+        public async Task<IEnumerable<Author>> FindAllAsync(int pageNumber, int pageSize)
         {
             return await _dbContext.Authors
                 .Include(a => a.Books)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
         }
 

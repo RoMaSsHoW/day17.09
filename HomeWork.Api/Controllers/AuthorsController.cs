@@ -1,5 +1,7 @@
-﻿using HomeWork.Application.DTOs;
+﻿using HomeWork.Application.Models.DTOs;
+using HomeWork.Application.Models.Responses;
 using HomeWork.Application.Services;
+using HomeWork.Domain.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +19,11 @@ namespace HomeWork.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(
+            [FromQuery] int pageNumber)
         {
-            var authors = await _authorService.GetAllAsync();
-            return Ok(authors);
+            var authors = await _authorService.GetAllAsync(pageNumber);
+            return Ok(new Response<IEnumerable<Author>>(authors));
         }
 
         [HttpPost]

@@ -1,5 +1,6 @@
 using AspNetCore.Swagger.Themes;
 using HomeWork.Api.Extentions;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(Style.Dark, options =>
     {
         options.SwaggerEndpoint("/openapi/v1.json", "v1");
+    });
+
+    app.MapScalarApiReference(options =>
+    {
+        options.Theme = ScalarTheme.Mars; // можно выбрать тему: Default, Mars, Solarized и т.д.
     });
 }
 
