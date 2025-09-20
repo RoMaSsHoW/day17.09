@@ -4,6 +4,8 @@ namespace HomeWork.Domain.Entities
 {
     public class Book
     {
+        private readonly List<BookGenre> _bookGenres = new();
+
         public Book() { }
 
         private Book(
@@ -17,6 +19,7 @@ namespace HomeWork.Domain.Entities
         public int Id { get; set; }
         public int AuthorId { get; set; }
         public string Title { get; set; } = string.Empty;
+        public IReadOnlyCollection<BookGenre> BookGenres => _bookGenres.AsReadOnly();
 
         public static Book Create(
             int authorId,

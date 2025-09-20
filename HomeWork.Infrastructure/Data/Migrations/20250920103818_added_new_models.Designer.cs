@@ -2,6 +2,7 @@
 using HomeWork.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HomeWork.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(HomeWorkDbContext))]
-    partial class HomeWorkDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250920103818_added_new_models")]
+    partial class added_new_models
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

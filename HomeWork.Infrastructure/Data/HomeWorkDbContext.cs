@@ -13,11 +13,15 @@ namespace HomeWork.Infrastructure.Data
 
         public DbSet<Author> Authors => Set<Author>();
         public DbSet<Book> Books => Set<Book>();
+        public DbSet<Genre> Genres => Set<Genre>();
+        public DbSet<BookGenre> BookGenres => Set<BookGenre>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new AuthorConfiguration());
             modelBuilder.ApplyConfiguration(new BookConfiguration());
+            modelBuilder.ApplyConfiguration(new GenreConfiguration());
+            modelBuilder.ApplyConfiguration(new BookGenreConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
